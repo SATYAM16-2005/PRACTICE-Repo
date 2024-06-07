@@ -1,0 +1,107 @@
+#OOPS(Object Oriented programming language)
+  Solving a problem by creating object is one of the most popular approcches in programing.
+#Class and object
+ A class is a blueprint or a template for creating objects.
+ An object is an instance of a class, and it represents a specific entity with its own unique set of attribute values.
+#Data members in class
+1. Instance variables are attributes that are specific to each instance (object) of a class.
+2.class variables are variables that are shared among all instances of a class
+#Special methods
+1.init method is a special method in Python classes that is used to initialize the object's attributes when an instance of the class is created.
+2.str method is a special method in Python classes that is used to define the string representation of an object.
+3.new method is a static method in Python classes that is called before the init method when creating a new instance of a class.
+#Constructor and Deconstructor
+Constructor: The constructor is a special method in Python classes that is automatically called when an instance (object) of the class is created.
+Deconstructor: In Python, there is no traditional deconstructor like in some other languages (e.g., C++). However, Python provides a special method called del that is a "destructor" of sorts.
+#Data encapsulation
+Encapsulation is the principle of bundling data and methods within a single unit (class). 
+
+
+
+
+#Functions in Python
+Functions in Python are defined using the def keyword
+
+#example
+def greet():
+    print("Hello, World!")
+
+# Calling the function
+greet()
+
+#ARGUMENTS IN PYTHON
+1. Positional Arguments:
+#EXAMPLE
+def greet(name, age):
+    print(f"Hello, my name is {name} and I am {age} years old.")
+
+# Calling the function with positional arguments
+greet("Alice", 30)                                                            #OUTPUT Hello, my name is Alice and I am 30 years old.
+
+2. KEYWORD ARGUMENT:
+#EXAMPLE
+def greet(name, age):
+    print(f"Hello, my name is {name} and I am {age} years old.")
+
+# Calling the function with keyword arguments
+greet(age=30, name="Alice")                                             #OUTPUT Hello, my name is Alice and I am 30 years old.
+
+3.  Default Arguments
+#EXAMPLE
+def greet(name, age=25):
+    print(f"Hello, my name is {name} and I am {age} years old.")
+
+# Calling the function without the default argument
+greet("Bob")
+
+# Calling the function with the default argument
+greet("Alice", 30)                                                #OUTPUT Hello, my name is Bob and I am 25 years old.
+                                                                          Hello, my name is Alice and I am 30 years old.
+
+
+
+#Example of Lambda Functions
+add = lambda x, y: x + y
+
+result = add(5, 3)
+print(result)  # Output: 8
+
+
+
+#Key Points about Lambda Function:
+They are ideal for short and simple expressions.
+They cannot contain complex statements like if or for loops.
+
+
+#Local Variables
+A local variable is a variable that is declared inside a function and can only be accessed within that function. Once the function execution is complete, the local variable is destroyed and its value is no longer accessible.
+
+#Global Variables
+A global variable is declared outside of all functions and is accessible from any function within the same program. Global variables exist for the lifetime of the program.
+
+#EXAMPLE
+# Global variable
+global_var = "I am a global variable"
+
+def my_function():
+    # Local variable
+    local_var = "I am a local variable"
+    print(local_var)
+    print(global_var)
+
+my_function()
+# Trying to access local_var outside its scope will result in an error
+# print(local_var)  # Uncommenting this line will cause a NameError
+
+print(global_var)                                                                                              #OUTPUT I am a local variable
+                                                                                                                       I am a global variable
+                                                                                                                       I am a global variable
+
+
+
+
+
+
+
+
+
