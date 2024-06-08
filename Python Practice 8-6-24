@@ -32,3 +32,9 @@ finally:
 An IndentationError occurs when there is an incorrect indentation in the code.
 
 
+
+#Inheritance:
+#Inheritance provides code reusability to the program because we can use an existing class to create a new class instead of creating it from scratch.
+
+
+
