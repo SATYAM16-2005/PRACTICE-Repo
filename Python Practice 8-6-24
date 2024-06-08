@@ -31,4 +31,101 @@ finally:
 #IndentationError
 An IndentationError occurs when there is an incorrect indentation in the code.
 
+# Inheritance:
+#Inheritance provides code reusability to the program because we can use an existing class to create a new class instead of creating it from scratch.
+#in inheritance child class can access all data members and functions defined in the parent class.
+#Example
+# Parent class
+class Animal:
+    def __init__(self, species, sound):
+        self.species = species
+        self.sound = sound
+
+    def make_sound(self):
+        print(f"The {self.species} says {self.sound}")
+
+# Child class
+class Dog(Animal):
+    def __init__(self, name):
+        super().__init__("dog", "woof")
+        self.name = name
+
+    def wag_tail(self):
+        print(f"{self.name} wags its tail")
+
+# Creating instances
+my_dog = Dog("Buddy")
+
+# Using methods from both parent and child classes
+my_dog.make_sound()  # Output: The dog says woof
+my_dog.wag_tail()    # Output: Buddy wags its tail
+
+#Properties of Inheritance
+1. Code Reusability
+2. Hierarchy
+3. Extensibility
+4. Polymorphism
+5. Encapsulation
+
+
+#MRO (Method Resolution Order):is a set of rules that define the order in which Python searches for methods when dealing with class inheritance, especially in scenarios with multiple inheritance.
+
+#Types of Inheritance
+#1. Single Inheritance :
+#Example
+# Parent class
+class Vehicle:
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+
+    def drive(self):
+        print(f"{self.make} {self.model} is now driving.")
+
+# Child class inheriting from Vehicle
+class Car(Vehicle):
+    def __init__(self, make, model, year, num_wheels):
+        super().__init__(make, model, year)
+        self.num_wheels = num_wheels
+
+    def honk(self):
+        print("Beep beep!")
+
+# Creating instances
+my_car = Car("Toyota", "Camry", 2020, 4)
+
+# Using methods from both parent and child classes
+my_car.drive()  # Output: Toyota Camry is now driving.
+my_car.honk()   # Output: Beep beep!
+
+#2.Multiple inheritance
+#Example
+# Parent class 1
+class Animal:
+    def speak(self):
+        pass
+
+# Parent class 2
+class CanFly:
+    def fly(self):
+        pass
+
+# Child class inheriting from Animal and CanFly
+class Bird(Animal, CanFly):
+    def speak(self):
+        print("Chirp chirp!")
+
+# Creating an instance
+my_bird = Bird()
+
+# Using methods from both parent classes
+my_bird.speak()  # Output: Chirp chirp!
+my_bird.fly()    # No error, as Bird inherits from CanFly
+
+
+#Note:super() function is used to refer to the parent class or superclass.
+
+
+
 
