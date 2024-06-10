@@ -1,0 +1,433 @@
+#Sets
+#In Python, a set is an unordered collection of unique elements. This means that a set cannot contain duplicate values.
+#Set Operations in Python
+1.Union (|):This operation combines all unique elements.
+2.Intersection (&):It only includes elements that exist in both sets.
+3.Difference (-):It includes elements that are present in the first set but not in the second set.
+4.Symmetric Difference (^):It includes elements that are present in either set, but not in both sets.
+#Note:
+#discard(element):This method removes the specified element from the set if it exists.
+#Frozen Set:A frozenset is an immutable version of a set, meaning its elements cannot be changed after creation. 
+
+
+
+#EXAMPLE
+# Creating sets
+set1 = {1, 2, 3, 4, 5}
+set2 = {4, 5, 6, 7, 8}
+
+# Adding elements to a set
+set1.add(6)
+print("Set 1 after adding 6:", set1)
+
+# Removing elements from a set
+set1.remove(3)
+print("Set 1 after removing 3:", set1)
+
+# Union of sets
+union_set = set1.union(set2)
+print("Union of Set 1 and Set 2:", union_set)
+
+# Intersection of sets
+intersection_set = set1.intersection(set2)
+print("Intersection of Set 1 and Set 2:", intersection_set)
+
+# Difference of sets
+difference_set = set1.difference(set2)
+print("Set 1 - Set 2:", difference_set)
+
+# Symmetric difference of sets
+symmetric_difference_set = set1.symmetric_difference(set2)
+print("Symmetric difference of Set 1 and Set 2:", symmetric_difference_set)
+
+# Check if a set is a subset of another set
+subset_check = {4, 5}.issubset(set1)
+print("{4, 5} is a subset of Set 1:", subset_check)
+
+# Check if a set is a superset of another set
+superset_check = set1.issuperset({4, 5})
+print("Set 1 is a superset of {4, 5}:", superset_check)
+
+# Check if two sets are disjoint
+disjoint_check = set1.isdisjoint({6, 7})
+print("Set 1 and {6, 7} are disjoint:", disjoint_check)
+
+# Clearing a set
+set1.clear()
+print("Set 1 after clearing:", set1)
+
+#OUTPUT
+Set 1 after adding 6: {1, 2, 3, 4, 5, 6}
+Set 1 after removing 3: {1, 2, 4, 5, 6}
+Union of Set 1 and Set 2: {1, 2, 4, 5, 6, 7, 8}
+Intersection of Set 1 and Set 2: {4, 5}
+Set 1 - Set 2: {1, 2, 6}
+Symmetric difference of Set 1 and Set 2: {1, 2, 6, 7, 8}
+{4, 5} is a subset of Set 1: True
+Set 1 is a superset of {4, 5}: True
+Set 1 and {6, 7} are disjoint: False
+Set 1 after clearing: set()
+
+
+
+
+#TUPLES:Tuples are used to store multiple items in a single variable. These are represented by round brackets ().
+
+#Characteristics of Tuples:
+1.They are indexed.
+2.Tuples are ordered.
+3.These are immutable.
+4.They can contain duplicate items.
+
+#EXAMPLE
+# Creating a tuple
+my_tuple = (1, 2, 3, 'a', 'b', 'c')
+
+# Accessing elements of a tuple
+print("First element of the tuple:", my_tuple[0])
+print("Last element of the tuple:", my_tuple[-1])
+
+# Slicing a tuple
+print("Sliced tuple:", my_tuple[2:5])
+
+# Length of a tuple
+print("Length of the tuple:", len(my_tuple))
+
+# Concatenating tuples
+tuple1 = (1, 2, 3)
+tuple2 = ('a', 'b', 'c')
+concatenated_tuple = tuple1 + tuple2
+print("Concatenated tuple:", concatenated_tuple)
+
+# Repetition of a tuple
+repeated_tuple = (1, 2) * 3
+print("Repeated tuple:", repeated_tuple)
+
+# Checking if an element is present in a tuple
+print("Is 'a' present in the tuple?", 'a' in my_tuple)
+
+# Iterating through a tuple
+print("Iterating through the tuple:")
+for item in my_tuple:
+    print(item)
+
+# Converting a tuple to a list
+tuple_to_list = list(my_tuple)
+print("Tuple converted to list:", tuple_to_list)
+
+
+#OUTPUT
+First element of the tuple: 1
+Last element of the tuple: c
+Sliced tuple: (3, 'a', 'b')
+Length of the tuple: 6
+Concatenated tuple: (1, 2, 3, 'a', 'b', 'c')
+Repeated tuple: (1, 2, 1, 2, 1, 2)
+Is 'a' present in the tuple? True
+Iterating through the tuple:
+1
+2
+3
+a
+b
+c
+Tuple converted to list: [1, 2, 3, 'a', 'b', 'c']
+
+
+#List: Lists is the fundamental data structure that allows you to store a collection of items in a specific order.
+#Lists methods
+1.Append
+2.Insert
+3.count
+4.extend
+5.index
+6.sort
+7.pop
+
+#list vs tuple
+
+1.Lists and Tuples in Python are two classes of Python Data Structures.
+2.The list structure is dynamic, and readily changed whereas the tuple structure is static and cannot be changed. This means that the tuple is generally faster than the list.
+3.Lists are denoted by square brackets and tuples are denoted with parenthesis
+
+
+#EXAMPLE
+# Creating a list
+my_list = [1, 2, 3, 'a', 'b', 'c']
+
+# Accessing elements of a list
+print("First element of the list:", my_list[0])
+print("Last element of the list:", my_list[-1])
+
+# Slicing a list
+print("Sliced list:", my_list[2:5])
+
+# Length of a list
+print("Length of the list:", len(my_list))
+
+# Appending elements to a list
+my_list.append(4)
+print("List after appending 4:", my_list)
+
+# Removing elements from a list
+my_list.remove('a')
+print("List after removing 'a':", my_list)
+
+# Inserting elements into a list
+my_list.insert(2, 'x')
+print("List after inserting 'x' at index 2:", my_list)
+
+# Removing elements by index
+removed_element = my_list.pop(3)
+print("List after removing element at index 3:", my_list)
+print("Removed element:", removed_element)
+
+# Checking if an element is present in a list
+print("Is 'b' present in the list?", 'b' in my_list)
+
+# Iterating through a list
+print("Iterating through the list:")
+for item in my_list:
+    print(item)
+
+# Converting a list to a tuple
+list_to_tuple = tuple(my_list)
+print("List converted to tuple:", list_to_tuple)
+
+
+#OUTPUT
+First element of the list: 1
+Last element of the list: c
+Sliced list: [3, 'a', 'b']
+Length of the list: 6
+List after appending 4: [1, 2, 3, 'a', 'b', 'c', 4]
+List after removing 'a': [1, 2, 3, 'b', 'c', 4]
+List after inserting 'x' at index 2: [1, 2, 'x', 3, 'b', 'c', 4]
+List after removing element at index 3: [1, 2, 'x', 'b', 'c', 4]
+Removed element: 3
+Is 'b' present in the list? True
+Iterating through the list:
+1
+2
+x
+b
+c
+4
+List converted to tuple: (1, 2, 'x', 'b', 'c', 4)
+
+
+
+
+#Dictionary:A dictionary in Python is an unordered collection of key-value pairs.
+#You can create a dictionary using the dict() constructor or by enclosing key-value pairs inside curly braces {}.
+
+#EXAMPLE
+# Creating a dictionary
+my_dict = {'name': 'John', 'age': 30, 'city': 'New York'}
+
+# Accessing elements of a dictionary
+print("Name:", my_dict['name'])
+print("Age:", my_dict['age'])
+print("City:", my_dict['city'])
+
+# Modifying elements of a dictionary
+my_dict['age'] = 35
+print("Updated age:", my_dict['age'])
+
+# Adding new key-value pairs to a dictionary
+my_dict['gender'] = 'Male'
+print("Dictionary after adding gender:", my_dict)
+
+# Removing key-value pairs from a dictionary
+removed_item = my_dict.pop('city')
+print("Dictionary after removing city:", my_dict)
+print("Removed item:", removed_item)
+
+# Checking if a key is present in a dictionary
+print("Is 'name' present in the dictionary?", 'name' in my_dict)
+
+# Iterating through a dictionary
+print("Iterating through the dictionary:")
+for key, value in my_dict.items():
+    print(key + ":", value)
+
+# Getting the keys and values of a dictionary separately
+print("Keys of the dictionary:", my_dict.keys())
+print("Values of the dictionary:", my_dict.values())
+
+
+
+#Output
+Name: John
+Age: 30
+City: New York
+Updated age: 35
+Dictionary after adding gender: {'name': 'John', 'age': 35, 'city': 'New York', 'gender': 'Male'}
+Dictionary after removing city: {'name': 'John', 'age': 35, 'gender': 'Male'}
+Removed item: New York
+Is 'name' present in the dictionary? True
+Iterating through the dictionary:
+name: John
+age: 35
+gender: Male
+Keys of the dictionary: dict_keys(['name', 'age', 'gender'])
+Values of the dictionary: dict_values(['John', 35, 'Male'])
+
+
+
+#EXAMPLE OF NESTED LIST
+# Creating a nested list
+nested_list = [[1, 2, 3], ['a', 'b', 'c'], [4.5, 6.7, 8.9]]
+
+# Accessing elements of a nested list
+print("First element of the nested list:", nested_list[0][0])
+print("Last element of the nested list:", nested_list[-1][-1])
+
+# Slicing a nested list
+print("Sliced nested list:", nested_list[1][1:])
+
+# Length of a nested list
+print("Number of sublists in the nested list:", len(nested_list))
+print("Length of the second sublist:", len(nested_list[1]))
+
+# Iterating through a nested list
+print("Iterating through the nested list:")
+for sublist in nested_list:
+    for item in sublist:
+        print(item)
+
+# Modifying elements of a nested list
+nested_list[0][1] = 'x'
+print("Modified nested list:", nested_list)
+
+# Adding elements to a nested list
+nested_list.append([10, 20, 30])
+print("Nested list after adding a sublist:", nested_list)
+
+# Removing elements from a nested list
+removed_sublist = nested_list.pop(1)
+print("Nested list after removing the second sublist:", nested_list)
+print("Removed sublist:", removed_sublist)
+
+
+#OUTPUT
+First element of the nested list: 1
+Last element of the nested list: 8.9
+Sliced nested list: ['b', 'c']
+Number of sublists in the nested list: 3
+Length of the second sublist: 3
+Iterating through the nested list:
+1
+2
+3
+a
+b
+c
+4.5
+6.7
+8.9
+Modified nested list: [[1, 'x', 3], ['a', 'b', 'c'], [4.5, 6.7, 8.9]]
+Nested list after adding a sublist: [[1, 'x', 3], ['a', 'b', 'c'], [4.5, 6.7, 8.9], [10, 20, 30]]
+Nested list after removing the second sublist: [[1, 'x', 3], [4.5, 6.7, 8.9], [10, 20, 30]]
+Removed sublist: ['a', 'b', 'c']
+
+
+
+#EXAMPLE OF NESTED DICTIONARY
+# Creating a nested dictionary
+nested_dict = {
+    'person1': {'name': 'John', 'age': 30, 'city': 'New York'},
+    'person2': {'name': 'Alice', 'age': 25, 'city': 'Los Angeles'},
+    'person3': {'name': 'Bob', 'age': 35, 'city': 'Chicago'}
+}
+
+# Accessing elements of a nested dictionary
+print("Name of person1:", nested_dict['person1']['name'])
+print("Age of person2:", nested_dict['person2']['age'])
+print("City of person3:", nested_dict['person3']['city'])
+
+# Modifying elements of a nested dictionary
+nested_dict['person1']['age'] = 32
+print("Updated age of person1:", nested_dict['person1']['age'])
+
+# Adding new key-value pairs to a nested dictionary
+nested_dict['person1']['gender'] = 'Male'
+print("Nested dictionary after adding gender to person1:", nested_dict)
+
+# Removing key-value pairs from a nested dictionary
+removed_city = nested_dict['person2'].pop('city')
+print("Nested dictionary after removing city from person2:", nested_dict)
+print("Removed city from person2:", removed_city)
+
+# Iterating through a nested dictionary
+print("Iterating through the nested dictionary:")
+for person, info in nested_dict.items():
+    print(person + ":")
+    for key, value in info.items():
+        print("  " + key + ":", value)
+
+
+#OUTPUT
+Name of person1: John
+Age of person2: 25
+City of person3: Chicago
+Updated age of person1: 32
+Nested dictionary after adding gender to person1: {'person1': {'name': 'John', 'age': 32, 'city': 'New York', 'gender': 'Male'}, 'person2': {'name': 'Alice', 'age': 25}, 'person3': {'name': 'Bob', 'age': 35, 'city': 'Chicago'}}
+Nested dictionary after removing city from person2: {'person1': {'name': 'John', 'age': 32, 'city': 'New York', 'gender': 'Male'}, 'person2': {'name': 'Alice', 'age': 25}, 'person3': {'name': 'Bob', 'age': 35, 'city': 'Chicago'}}
+Removed city from person2: Los Angeles
+Iterating through the nested dictionary:
+person1:
+  name: John
+  age: 32
+  city: New York
+  gender: Male
+person2:
+  name: Alice
+  age: 25
+person3:
+  name: Bob
+  age: 35
+  city: Chicago
+
+
+#EXAMPLE OF NESTED TUPLE
+# Creating a nested tuple
+nested_tuple = ((1, 2, 3), ('a', 'b', 'c'), (4.5, 6.7, 8.9))
+
+# Accessing elements of a nested tuple
+print("First element of the nested tuple:", nested_tuple[0][0])
+print("Last element of the nested tuple:", nested_tuple[-1][-1])
+
+# Slicing a nested tuple
+print("Sliced nested tuple:", nested_tuple[1][1:])
+
+# Length of a nested tuple
+print("Number of sub-tuples in the nested tuple:", len(nested_tuple))
+print("Length of the second sub-tuple:", len(nested_tuple[1]))
+
+# Iterating through a nested tuple
+print("Iterating through the nested tuple:")
+for subtuple in nested_tuple:
+    for item in subtuple:
+        print(item)
+
+
+#OUTPUT
+First element of the nested tuple: 1
+Last element of the nested tuple: 8.9
+Sliced nested tuple: ('b', 'c')
+Number of sub-tuples in the nested tuple: 3
+Length of the second sub-tuple: 3
+Iterating through the nested tuple:
+1
+2
+3
+a
+b
+c
+4.5
+6.7
+8.9
+
+
+
