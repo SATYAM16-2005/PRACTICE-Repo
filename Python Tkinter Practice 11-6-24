@@ -1,3 +1,5 @@
+#Graphical user interface:A graphical user interface, or GUI, is a form of user interface that allows users to interact with electronic devices through graphical icons and visual indicators
+
 #Tkinter: is the most commonly used library for developing GUI (Graphical User Interface) in Python.
 
 #Tkinter provides a way to create windows, buttons, labels, text boxes, and other GUI components.
