@@ -47,4 +47,6 @@ a.pack()
 
 root.mainloop()
 
+#OUTPUT
+Hello World
 
