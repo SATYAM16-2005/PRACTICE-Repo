@@ -1,0 +1,40 @@
+#Tkinter: is the most commonly used library for developing GUI (Graphical User Interface) in Python.
+
+#Tkinter provides a way to create windows, buttons, labels, text boxes, and other GUI components.
+
+#Basic Widgets in Tkinter:
+Label: Display static text or images.
+Button: Create clickable buttons to trigger actions.
+Entry: Allow user input for single-line text.
+Frame: Organize widgets within a container.
+Checkbutton: Create checkboxes for boolean options.
+Radiobutton: Create radio buttons for mutually exclusive options.
+Listbox: Display a list of items for selection.
+Scrollbar: Add scrollbars to widgets like Listbox.
+Menu: Create simple menus for application navigation.
+Canvas: Draw shapes, lines, text, and images
+
+
+#Intermediate Widgets in Tkinter
+Combobox: Provide a dropdown list with editable text entry.
+Scale: Create a scale widget for selecting values within a range.
+Toplevel: Create additional windows/dialogs.
+Message: Display simple messages or notifications.
+Menubutton: Create a button that opens a menu.
+Progressbar: Show progress of a task.
+Spinbox: Provide a numerical input with up/down arrows.
+
+
+#The two main method used for building python application for gui are:
+1.Tk():To create a main window
+2.mainloop(): is used when your application is ready to run.
+#NOTE: To create python tinkter we use 
+#EXAMPLE
+import tkinter
+m = tkinter.Tk()
+'''
+widgets are added here
+'''
+m.mainloop()
+
+
