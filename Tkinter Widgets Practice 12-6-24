@@ -1,0 +1,187 @@
+#PRACTICE OF BASIC WIDGETS
+#1. label and button
+# Import Module
+from tkinter import *
+
+# create root window
+root = Tk()
+
+# root window title and dimension
+root.title("Welcome to Himachal")
+# Set geometry(widthxheight)
+root.geometry('350x200')
+
+# adding a label to the root window
+lbl = Label(root, text = "Are you From Himachal?")
+lbl.grid()
+
+# function to display text when
+# button is clicked
+def clicked():
+	lbl.configure(text = "Do you like hill stations")
+
+# button widget with blue color text
+# inside
+btn = Button(root, text = "Click here" ,
+			fg = "blue", command=clicked)
+# set Button grid
+btn.grid(column=1, row=0)
+
+# Execute Tkinter
+root.mainloop()
+
+
+
+
+
+
+#Practice Of Entry() Widget
+# Import Module
+from tkinter import *
+
+# create root window
+root = Tk()
+
+# root window title and dimension
+root.title("Welcome to Himachal")
+# Set geometry(widthxheight)
+root.geometry('350x200')
+
+# adding a label to the root window
+lbl = Label(root, text = "Are You From himachal?")
+lbl.grid()
+
+# adding Entry Field
+txt = Entry(root, width=10)
+txt.grid(column =1, row =0)
+
+
+# function to display user text when 
+# button is clicked
+def clicked():
+
+	res = "You wrote" + txt.get()
+	lbl.configure(text = res)
+
+# button widget with blur color text inside
+btn = Button(root, text = "Click Here" ,
+			fg = "blue", command=clicked)
+# Set Button Grid
+btn.grid(column=2, row=0)
+
+# Execute Tkinter
+root.mainloop()
+
+
+
+
+#Practice Of CheckButton
+from tkinter import *
+
+root = Tk() 
+root.geometry("300x200") 
+
+w = Label(root, text ='Are You Interested inn trekking', font = "50") 
+w.pack() 
+
+Checkbutton1 = IntVar() 
+Checkbutton2 = IntVar() 
+Checkbutton3 = IntVar() 
+
+Button1 = Checkbutton(root, text = "Yes", 
+                    variable = Checkbutton1, 
+                    onvalue = 1, 
+                    offvalue = 0, 
+                    height = 2, 
+                    width = 10) 
+
+Button2 = Checkbutton(root, text = "No", 
+                    variable = Checkbutton2, 
+                    onvalue = 1, 
+                    offvalue = 0, 
+                    height = 2, 
+                    width = 10) 
+
+    
+Button1.pack() 
+Button2.pack() 
+
+mainloop() 
+
+
+
+#practice of radiobutton
+
+from tkinter import *
+
+
+# Creating master Tkinter window
+master = Tk()
+master.geometry("175x175")
+
+# Tkinter string variable
+# able to store any string value
+v = StringVar(master, "1")
+
+# Dictionary to create multiple buttons
+values = {"RadioButton 1" : "1",
+		"RadioButton 2" : "2",
+		"RadioButton 3" : "3",
+		"RadioButton 4" : "4"}
+
+# Loop is used to create multiple Radiobuttons
+# rather than creating each button separately
+for (text, value) in values.items():
+	Radiobutton(master, text = text, variable = v, 
+				value = value, indicator = 0,
+				background = "light blue").pack(fill = X, ipady = 5)
+
+# Infinite loop can be terminated by
+# keyboard or mouse interrupt
+# or by any predefined function (destroy())
+mainloop()
+
+
+#Practice Of menu widget
+
+from tkinter import *
+
+
+root = Tk()
+root.title("Welcome to himachal")
+
+root.geometry('350x200')
+
+# adding menu bar in root window
+# new item in menu bar labelled as 'New'
+# adding more items in the menu bar 
+menu = Menu(root)
+item = Menu(menu)
+item.add_command(label='New')
+menu.add_cascade(label='File', menu=item)
+root.config(menu=menu)
+
+# adding a label to the root window
+lbl = Label(root, text = "Do you like hill stations?")
+lbl.grid()
+
+# adding Entry Field
+txt = Entry(root, width=10)
+txt.grid(column =1, row =0)
+
+
+# function to display user text when
+# button is clicked
+def clicked():
+
+	res = "You wrote" + txt.get()
+	lbl.configure(text = res)
+
+# button widget with Green color text inside
+btn = Button(root, text = "Click Here" ,
+			fg = "Green", command=clicked)
+# Set Button Grid
+btn.grid(column=2, row=0)
+
+# Execute Tkinter
+root.mainloop()
