@@ -1,0 +1,124 @@
+#listbox: Display a list of items for selection
+
+
+from tkinter import *
+
+root = Tk() 
+a = Label(root, text ="What would you like to order?") 
+Lb= Listbox(root)
+Lb.insert(1,"Chinese")
+Lb.insert(2,"Italian")
+Lb.pack()
+
+root.mainloop()
+
+
+
+#Scrollbar: refers to the slide controller which will be used to implement listed widgets. 
+
+
+from tkinter import *
+
+
+root = Tk()
+scrollbar=Scrollbar(root)
+scrollbar.pack(side=RIGHT, fill=Y)
+mylist=Listbox(root,yscrollcommand=scrollbar.set)
+a = Label(root, text ="What would you like to order?") 
+Lb= Listbox(root)
+Lb.insert(1,"Chinese")
+Lb.insert(2,"Italian")
+Lb.insert(3,"Mexican")
+Lb.insert(4,"Thai")
+Lb.insert(5,"korean")
+Lb.insert(6,"Turkish")
+
+
+Lb.pack()
+
+root.mainloop()
+
+
+
+#Practice of menu widget
+from tkinter import *
+
+root = Tk()
+menu = Menu(root)
+root.config(menu=menu)
+Homemenu=Menu(menu)
+menu.add_cascade(label="Home", menu=Homemenu)
+
+Homemenu.add_command(label="Module1")
+Homemenu.add_command(label="Module2")
+Homemenu.add_separator()
+Homemenu.add_command(label="Exit",command=root.quit)
+Aboutmenu=Menu(menu)
+menu.add_cascade(label="About",menu=Aboutmenu)
+Aboutmenu.add_command(label="Overview")
+root.mainloop()
+
+
+
+#canva: used to create and draw shapes,lines,text,and images
+
+#Creating A line using Canva
+from tkinter import *
+
+master = Tk()
+w = Canvas(master, width=40, height=60)
+w.pack()
+canvas_height=20
+canvas_width=200
+y = int(canvas_height / 2)
+w.create_line(0, y, canvas_width, y )
+mainloop()
+
+
+
+#Creating a rectangle from Canva
+
+from tkinter import *
+
+master = Tk()
+w = Canvas(master, width=900, height=900)
+w.pack()
+x1,y1=100,100
+x2,y2=200,200
+
+w.create_rectangle(x1,y1,x2,y2,fill="red")
+master.mainloop()
+
+
+
+
+
+#Frame:Organize widgets within a container.
+
+
+import tkinter as tk
+
+def main():
+    
+    root = tk.Tk()
+    root.title("What Is your name")
+    root.geometry("400x300")
+
+    
+frame = tk.Frame(root, bg="lightblue", bd=5, relief=tk.RIDGE)
+frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+
+   
+label = tk.Label(frame, text="Enter Your Email.", bg="lightblue")
+label.pack(pady=10)
+
+button = tk.Button(frame, text="Click Here")
+button.pack(pady=10)
+
+entry = tk.Entry(frame)
+entry.pack(pady=10)
+
+    
+root.mainloop()
+if __name__ == "__main__":
+    main()
