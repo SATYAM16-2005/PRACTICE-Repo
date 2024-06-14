@@ -1,0 +1,162 @@
+#DATABASE: is defined as collection of interrelated data stored together to serve multiple applications.
+#DBMS: refers to a software that is responsible for storing , maintaining , and utilizing databases.
+#NOTE:
+#1. Duplication of data is known as data redundancy
+#2. Mismatched mutiple copies of same data is known as data inconsistency
+
+
+#Relational Database model: in this the data is organized into tables . These tables are called relations. Rows of relations are generally referred to as tuples and columns are usually referred to as attributes.
+
+
+#Views : is a kind of table whose contents are taken from other table depending upon a condition. Views do not contain data of their own.
+
+
+#Commands in sql:-
+#DDL: is a set of SQL commands used to create, modify, and delete database structures
+#DQL: statements are used for performing queries on the data within schema objects.
+#DML:The SQL commands that deal with the manipulation of data present in the database belong to DML or Data Manipulation Language
+#DCL includes commands such as GRANT and REVOKE which mainly deal with the rights, permissions, and other controls of the database system. 
+#TCL: Command are used to manage transactions.
+
+
+#DDL Commands:
+#CREATE,ALTER,DROP,TRUNCATE,COMMENT,RENAME
+
+#DQL COMMAND: SELECT
+
+#DML command: INSERT,UPDATE,DELETE
+
+#DCL command: GRANT,REVOKE
+
+#TCL Command: BEGIN,COMMIT,ROLLBACK,SAVEPOINT
+
+
+
+#Example Of DDL command
+CREATE DATABASE OFFICE;
+
+Use OFFICE;
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DepartmentID INT,
+    Salary DECIMAL(10, 2)
+);
+
+ALTER TABLE Employees
+ADD Email VARCHAR(100);
+
+
+DROP TABLE Employees;
+
+#Example of DQL and DML command
+
+use Office;
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DepartmentID INT,
+    Salary DECIMAL(10, 2)
+);
+
+
+INSERT INTO Employees (EmployeeID, FirstName, LastName, DepartmentID, Salary)
+VALUES (1, 'John', 'Doe', 1, 60000);
+INSERT INTO Employees (EmployeeID, FirstName, LastName, DepartmentID, Salary)
+VALUES (2, 'Jane', 'Smith', 2, 55000),
+       (3, 'Michael', 'Johnson', 1, 62000),
+       (4, 'Emily', 'Williams', 2, 58000)
+
+INSERT INTO Employees (EmployeeID, FirstName, LastName, DepartmentID, Salary)
+VALUES (5, 'Sarah', 'Johnson', 2, 60000);
+
+INSERT INTO Employees (EmployeeID, FirstName, LastName, DepartmentID, Salary)
+VALUES (6, 'James', 'Brown', 1, 58000),
+       (7, 'Emma', 'Miller', 2, 62000);
+
+
+
+SELECT*FROM Employees;
+
+UPDATE Employees
+SET Salary = 65000
+WHERE EmployeeID = 2;
+
+
+
+DELETE FROM Employees
+WHERE EmployeeID = 3;
+
+SELECT * From Employees;
+
+
+/*
+DATATYPES 
+ NUMERIC DATA TYPE 
+1) INT(size)
+2) BIGINT(size)
+3) FLOAT(size , d) here d is no.of digits after the decimal points.
+4) DOUBLE
+5) DECIMAL
+
+ DATE AND TIME DATATYPE
+1) DATE: FORMAT : YYYY-MM-DD
+2) DATETIME: FORMAT : YYYY-MM-DD hh:mm:ss
+3) TIME :FORMAT : hh:mm:ss
+4) YEAR : FORMAT : 1901 to 2155, and 0000.
+
+ STRING DATATYPES
+1) CHAR 
+2) VARCHAR
+3) TEXT
+*/
+
+/*
+CONSTRAINTS
+NOT NULL - Ensures that a column cannot have a NULL value
+UNIQUE - Ensures that all values in a column are different
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Prevents actions that would destroy links between tables
+CHECK - Ensures that the values in a column satisfies a specific condition
+DEFAULT - Sets a default value for a column if no value is specified
+*/
+
+
+# OPERATORS:is a symbol that tells the compiler to perform specific mathematical, relational or logical operation to produce a desired result.
+
+#EXPRESSION: An expression is a combination of one or more operators and operands which together	produce a meaningful result.
+
+#Types OF Operators
+-- Arithmetic Operators:
+#example
+SELECT 5 + 3 AS AdditionResult;
+SELECT 10 - 4 AS SubtractionResult;
+SELECT 6 * 2 AS MultiplicationResult;
+SELECT 20 / 5 AS DivisionResult;
+
+-- Comparison Operators:
+#Example
+SELECT * FROM products WHERE price = 10;
+SELECT * FROM products WHERE price > 10;
+SELECT * FROM products WHERE price >= 10;
+SELECT * FROM products WHERE price <= 10;
+
+-- Bitwise Operators:
+#example
+SELECT 5 & 3 ;
+SELECT 5 | 3 ;
+SELECT 5 ^ 3 ;
+
+-- Logical Operators:
+#example
+SELECT * FROM products WHERE price > 10 AND stock > 0;
+SELECT * FROM products WHERE price < 10 OR stock > 0;
+SELECT * FROM products WHERE NOT price > 10;
+
+
+
+
+
