@@ -1,0 +1,30 @@
+#GROUP BY: clause combines all those records thst have identical values in a paricular field.
+#HAVING:The HAVING clause in SQL is used in conjunction with the GROUP BY clause to filter groups based on a specified condition.
+#Example
+use quit;
+SELECT job, COUNT(*)
+From empl
+GROUP BY job;
+
+#Using GROUPBY with HAVING clause
+#Example
+Use Grocery;
+SELECT AVG(gross),SUM(gross)
+From employee
+GROUP BY grade
+HAVING grade = 'E4';
+
+#GROUP BY using concat()
+#Example
+Use office;
+SELECT customer_id, GROUP_CONCAT(product SEPARATOR ', ') AS products
+FROM orders
+GROUP BY customer_id;
+
+
+#Example: Products That have stock level between 50-60 and are located in Delhi
+SELECT p.pid, p.pname, p.stock 
+FROM products p 
+WHERE p.location = 'Delhii' 
+GROUP BY p.pid, p.pname, p.stock 
+HAVING p.stock BETWEEN 50 AND 60;
