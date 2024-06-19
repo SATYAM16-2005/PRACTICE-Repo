@@ -1,1 +1,121 @@
+#Join: is a query thst combines rows from two or more tables.
+#EXAMPLE
+SELECT patient_no , description , normal_charge , charge
+FROM billed, item
+WHERE billed.item_code = item.item_code
+
+#Cartesian Product: In this all possible concatenations are formed of all rows of both tables 
+#exampple
+SELECT *
+FROM emp,DEPT;
+
+#Table Aliases: is a temporary label given along with table name in FROM clause.
+#Example
+SELECT DISTINCT patient_no, phy_id
+FROM treats
+WHERE phy_id IN(8887,8886,8883,8882);
+
+
+
+#Example: List which patient was treated by which physician.Also list their ids along with their names.
+SELECT DISTINCT PA.patient_no,pat_name,PH.phy_id,phy_name
+FROM patient PA,physician PH, treats TR
+WHERE PA.patient_no=TR.patient_no AND
+PH.phy_id=TR.phy_id AND
+PH.phy_id IN (8887,8886,8883,8882);
+
+
+#EQUI JOIN: In this column are compared for equality
+#Natural JOIN: In this type of join only one identical columns exists
+
+#EXAMPLE
+CREATE DATABASE office_db;
+
+USE office_db;
+
+CREATE TABLE departments (
+    department_id INT AUTO_INCREMENT PRIMARY KEY,
+    department_name VARCHAR(100) NOT NULL,
+    location VARCHAR(100)
+);
+
+CREATE TABLE employees (
+    employee_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    phone_number VARCHAR(20),
+    hire_date DATE NOT NULL,
+    job_title VARCHAR(50) NOT NULL,
+    salary DECIMAL(10, 2) NOT NULL,
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+);
+
+INSERT INTO departments (department_name, location)
+VALUES 
+('Human Resources', 'New York'),
+('Engineering', 'San Francisco'),
+('Marketing', 'Chicago'),
+('Sales', 'Dallas');
+
+
+INSERT INTO employees (first_name, last_name, email, phone_number, hire_date, job_title, salary, department_id)
+VALUES
+('John', 'Doe', 'john.doe@example.com', '123-456-7890', '2020-01-15', 'HR Manager', 75000, 1),
+('Jane', 'Smith', 'jane.smith@example.com', '234-567-8901', '2019-03-20', 'Software Engineer', 90000, 2),
+('Michael', 'Brown', 'michael.brown@example.com', '345-678-9012', '2018-07-10', 'Marketing Specialist', 65000, 3),
+('Emily', 'Davis', 'emily.davis@example.com', '456-789-0123', '2021-05-30', 'Sales Associate', 55000, 4),
+('William', 'Johnson', 'william.johnson@example.com', '567-890-1234', '2017-11-25', 'Senior Software Engineer', 120000, 2);
+
+
+SELECT e.employee_id, e.first_name, e.last_name, e.email, e.job_title, e.salary, d.department_name
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id;
+
+
+SELECT first_name, last_name, job_title
+FROM employees
+WHERE department_id = 2;
+
+
+SELECT d.department_name, COUNT(e.employee_id) AS num_employees
+FROM departments d
+LEFT JOIN employees e ON d.department_id = e.department_id
+GROUP BY d.department_name;
+
+
+SELECT d.department_name, MAX(e.salary) AS highest_salary
+FROM departments d
+JOIN employees e ON d.department_id = e.department_id
+GROUP BY d.department_name;
+
+
+SELECT employees.employee_id, employees.first_name, employees.last_name, employees.email, employees.job_title, departments.department_name
+FROM employees
+INNER JOIN departments ON employees.department_id = departments.department_id;
+
+
+SELECT *
+FROM employees
+NATURAL JOIN departments;
+
+
+SELECT employees.employee_id, employees.first_name, employees.last_name, employees.email, employees.job_title, departments.department_name
+FROM employees
+JOIN departments ON employees.department_id = departments.department_id;
+
+
+SELECT employees.employee_id, employees.first_name, employees.last_name, employees.email, employees.job_title, departments.department_name
+FROM employees
+LEFT JOIN departments ON employees.department_id = departments.department_id;
+
+
+SELECT employees.employee_id, employees.first_name, employees.last_name, employees.email, employees.job_title, departments.department_name
+FROM employees
+RIGHT JOIN departments ON employees.department_id = departments.department_id;
+
+SELECT employees.employee_id, employees.first_name, employees.last_name, employees.email, departments.department_name, departments.location
+FROM employees
+CROSS JOIN departments;
 
