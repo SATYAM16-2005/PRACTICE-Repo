@@ -1,1 +1,153 @@
+--  Anomalies are undesirable conditions in a relational database that can lead to data inconsistency, which can lead to data manipulation.
+ -- Insertion Anomalies: Occur when you cannot insert valid data due to the structure of the table.
+-- Deletion Anomalies: Occur when deleting a row also deletes unrelated data.
+-- Update Anomalies: Occur when updating a value in one row requires changes in other rows to maintain consistency, potentially leading to errors.
+
+#Example
+UPDATE students
+SET instructor = 'Dr. Lee'
+WHERE course_id = 101;
+
+INSERT INTO students (course_id, course_name, instructor)
+VALUES (104, 'Physics', 'Dr. White');
+
+
+DELETE FROM students
+WHERE student_id = 4;
+
+
+-- Candidate keys are attributes or combinations of attributes within a relation (table) that uniquely identify each tuple (row).
+
+/*
+PRIMARY KEY
+-> It is a column or a set of columns that uniquely identifies each record in a table.
+-> Eg: Registration number, Driver's license number, Aadhar number etc
+
+Rules for defining the Primary Key
+-> Uniqueness: Each value in a primary key must be unique
+-> Null values: A primary key cannot contain null values
+-> Number of primary keys: A table can only have one primary key
+*/
+
+
+#EXAMPLE
+CREATE TABLE employees (
+    employee_id INT NOT NULL,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(15) NOT NULL,
+    hire_date DATE,
+    job_title VARCHAR(50),
+    salary DECIMAL(10, 2),);
+
+#FOREIGN KEY: It is a column or group of columns in a database that connects the data in one table to the data in another table.
+
+#Normalization is the process of minimizing redundancy from a relation or set of relations.
+
+/*
+Levels of Normalization
+There are various levels of normalization. These are some of them: 
+-> First Normal Form (1NF)
+-> Second Normal Form (2NF)
+-> Third Normal Form (3NF)
+-> Boyce-Codd Normal Form (BCNF) 
+*/
+
+#Example
+#1NF
+CREATE TABLE students_courses (
+    student_id INT NOT NULL,
+    student_name VARCHAR(50),
+    course_name VARCHAR(50),
+    PRIMARY KEY (student_id, course_name)
+);
+
+INSERT INTO students_courses (student_id, student_name, course_name) VALUES
+(1, 'John Doe', 'Math'),
+(1, 'John Doe', 'Science'),
+(2, 'Jane Smith', 'English'),
+(2, 'Jane Smith', 'History'),
+(2, 'Jane Smith', 'Math'),
+(3, 'Michael Brown', 'Science'),
+(4, 'Emily Davis', 'Math'),
+(4, 'Emily Davis', 'History');
+
+#2NF
+CREATE TABLE students_courses (
+    student_id INT NOT NULL,
+    course_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (student_id, course_name)
+);
+
+CREATE TABLE courses (
+    course_name VARCHAR(50) NOT NULL,
+    instructor VARCHAR(50),
+    PRIMARY KEY (course_name)
+);
+
+
+INSERT INTO students_courses (student_id, course_name) VALUES
+(1, 'Math'),
+(1, 'Science'),
+(2, 'English'),
+(2, 'History'),
+(2, 'Math'),
+(3, 'Science'),
+(4, 'Math'),
+(4, 'History');
+
+INSERT INTO courses (course_name, instructor) VALUES
+('Math', 'Dr. Smith'),
+('Science', 'Dr. Johnson'),
+('English', 'Dr. White'),
+('History', 'Dr. Black');
+
+
+
+#3NF
+CREATE TABLE students_courses (
+    student_id INT NOT NULL,
+    course_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (student_id, course_name)
+);
+
+CREATE TABLE courses (
+    course_name VARCHAR(50) NOT NULL,
+    instructor VARCHAR(50),
+    PRIMARY KEY (course_name)
+);
+
+CREATE TABLE departments (
+    department VARCHAR(50) NOT NULL,
+    course_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (course_name),
+    FOREIGN KEY (course_name) REFERENCES courses(course_name)
+);
+
+
+INSERT INTO students_courses (student_id, course_name) VALUES
+(1, 'Math'),
+(1, 'Science'),
+(2, 'English'),
+(2, 'History'),
+(2, 'Math'),
+(3, 'Science'),
+(4, 'Math'),
+(4, 'History');
+
+INSERT INTO courses (course_name, instructor) VALUES
+('Math', 'Dr. Smith'),
+('Science', 'Dr. Johnson'),
+('English', 'Dr. White'),
+('History', 'Dr. Black');
+
+INSERT INTO departments (department, course_name) VALUES
+('Math Dept', 'Math'),
+('Science Dept', 'Science'),
+('English Dept', 'English'),
+('History Dept', 'History');
+
+
+
 
