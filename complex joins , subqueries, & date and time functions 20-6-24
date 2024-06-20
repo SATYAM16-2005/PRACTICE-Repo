@@ -1,0 +1,197 @@
+-- Create Customers Table
+CREATE TABLE customers (
+    customer_id INT NOT NULL AUTO_INCREMENT,
+    customer_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(15),
+    address VARCHAR(255),
+    PRIMARY KEY (customer_id)
+);
+
+-- Create Products Table
+CREATE TABLE products (
+    product_id INT NOT NULL AUTO_INCREMENT,
+    product_name VARCHAR(100) NOT NULL,
+    product_description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (product_id)
+);
+
+-- Create Orders Table
+CREATE TABLE orders (
+    order_id INT NOT NULL AUTO_INCREMENT,
+    customer_id INT NOT NULL,
+    order_date DATE NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(50),
+    PRIMARY KEY (order_id),
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+-- Create OrderDetails Table to store details of each product in an order
+CREATE TABLE order_details (
+    order_detail_id INT NOT NULL AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (order_detail_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Create Payments Table
+CREATE TABLE payments (
+    payment_id INT NOT NULL AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    payment_date DATE NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_mode VARCHAR(50),
+    status VARCHAR(50),
+    PRIMARY KEY (payment_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);
+
+
+-- Insert Sample Data into Customers Table
+INSERT INTO customers (customer_name, email, phone, address) VALUES
+('John Doe', 'john@example.com', '1234567890', '123 Maple St, Cityville'),
+('Jane Smith', 'jane@example.com', '0987654321', '456 Oak St, Townsville'),
+('Michael Brown', 'michael@example.com', '1122334455', '789 Pine St, Villageville'),
+('Emily Davis', 'emily@example.com', '2233445566', '101 Elm St, Hamletville');
+
+-- Insert Sample Data into Products Table
+INSERT INTO products (product_name, product_description, price) VALUES
+('Laptop', 'A high-performance laptop', 999.99),
+('Smartphone', 'A latest model smartphone', 699.99),
+('Tablet', 'A lightweight tablet', 299.99),
+('Smartwatch', 'A stylish smartwatch', 199.99);
+
+-- Insert Sample Data into Orders Table
+INSERT INTO orders (customer_id, order_date, total_amount, status) VALUES
+(1, '2024-01-10', 1299.98, 'Completed'),
+(2, '2024-01-12', 199.99, 'Pending'),
+(3, '2024-01-15', 999.99, 'Completed'),
+(4, '2024-01-18', 699.99, 'Shipped');
+
+-- Insert Sample Data into OrderDetails Table
+INSERT INTO order_details (order_id, product_id, quantity, price) VALUES
+(1, 1, 1, 999.99),
+(1, 4, 1, 199.99),
+(2, 4, 1, 199.99),
+(3, 1, 1, 999.99),
+(4, 2, 1, 699.99);
+
+-- Insert Sample Data into Payments Table
+INSERT INTO payments (order_id, payment_date, amount, payment_mode, status) VALUES
+(1, '2024-01-11', 1299.98, 'Credit Card', 'Paid'),
+(2, '2024-01-13', 199.99, 'PayPal', 'Pending'),
+(3, '2024-01-16', 999.99, 'Credit Card', 'Paid'),
+(4, '2024-01-19', 699.99, 'Debit Card', 'Paid');
+
+ALTER TABLE payments
+ADD COLUMN payment_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+
+-- Update the payment_timestamp for payment_id 1
+UPDATE payments
+SET payment_timestamp = '2024-02-01 12:34:56'
+WHERE payment_id = 1;
+
+-- Update the payment_timestamp for payment_id 2
+UPDATE payments
+SET payment_timestamp = '2024-02-02 14:30:00'
+WHERE payment_id = 2;
+
+-- Update the payment_timestamp for payment_id 3
+UPDATE payments
+SET payment_timestamp = '2024-02-03 09:15:00'
+WHERE payment_id = 3;
+
+-- Update the payment_timestamp for payment_id 4
+UPDATE payments
+SET payment_timestamp = '2024-02-04 16:45:30'
+WHERE payment_id = 4;
+
+
+#single row subqueries
+SELECT *
+FROM customers
+WHERE customer_id = (SELECT customer_id FROM orders ORDER BY order_date ASC LIMIT 1);
+
+
+SELECT *
+FROM products
+WHERE price = (SELECT MAX(price) FROM products);
+
+
+
+SELECT *
+FROM orders
+WHERE total_amount = (SELECT MAX(total_amount) FROM orders);
+
+
+
+SELECT *
+FROM customers
+WHERE customer_id = (SELECT customer_id FROM orders WHERE order_id = (SELECT order_id FROM payments ORDER BY payment_timestamp DESC LIMIT 1));
+
+
+#Multiple row subqueries
+SELECT *
+FROM customers
+WHERE customer_id IN (SELECT DISTINCT customer_id FROM orders);
+
+
+SELECT *
+FROM products
+WHERE product_id IN (SELECT product_id FROM orders GROUP BY product_id HAVING COUNT(*) > 1);
+
+
+SELECT *
+FROM orders
+WHERE total_amount > (SELECT AVG(total_amount) FROM orders);
+
+
+SELECT *
+FROM customers
+WHERE customer_id IN (SELECT DISTINCT customer_id FROM orders WHERE order_id IN (SELECT order_id FROM payments));
+
+
+SELECT *
+FROM products
+WHERE product_id NOT IN (SELECT DISTINCT product_id FROM orders);
+
+
+
+#joins
+SELECT customers.customer_name, orders.order_id, orders.total_amount
+FROM customers
+INNER JOIN orders ON customers.customer_id = orders.customer_id;
+
+
+SELECT customers.customer_name, orders.order_id, orders.total_amount
+FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id;
+
+
+SELECT customers.customer_name, orders.order_id, orders.total_amount
+FROM customers
+RIGHT JOIN orders ON customers.customer_id = orders.customer_id;
+
+
+SELECT customers.customer_name, products.product_name
+FROM customers
+CROSS JOIN products;
+
+
+SELECT customers.customer_name, orders.order_id, orders.total_amount
+FROM customers, orders
+WHERE customers.customer_id = orders.customer_id;
+
+
+SELECT *
+FROM customers
+NATURAL JOIN orders;
+
+
