@@ -1,0 +1,158 @@
+--DELIMITER command is used to change the standard delimiter(like a semicolon (;)), to a different character. 
+/*
+DETERMINISTIC indicates that the function will always return the same result for the same input values.
+If the function contains any non-deterministic elements (e.g., calls to functions that return different values each time they are called),
+you should omit this keyword.
+*/
+
+-- A procedure is a set of SQL statements that can be saved and reused.
+
+
+#EXAMPLE
+DELIMITER //
+
+CREATE PROCEDURE GetCustomerById (IN customer_id INT)
+BEGIN
+    SELECT customer_name, email, phone, address
+    FROM customers
+    WHERE customer_id = customer_id;
+END //
+
+DELIMITER ;
+
+#Execute It
+CALL GetCustomerById(1);
+
+
+#Droping Procedure
+DROP PROCEDURE IF EXISTS GetCustomerById;
+
+
+
+/*
+A function is a reusable block of code that performs a specific task and can return a value.
+Functions are similar to procedures, but procedures do not return values.
+
+*/
+
+
+#Example
+DELIMITER //
+
+-- Create the function
+CREATE FUNCTION GetCustomerEmail (customer_id INT) 
+RETURNS VARCHAR(255)
+DETERMINISTIC
+BEGIN
+    DECLARE customer_email VARCHAR(255);
+    
+    -- Select the email from the customers table
+    SELECT email INTO customer_email
+    FROM customers
+    WHERE customer_id = customer_id;
+    
+    -- Return the email
+    RETURN customer_email;
+END //
+
+-- Change the delimiter back to ;
+DELIMITER ;
+
+
+SELECT GetCustomerEmail(1) AS customer_email;
+
+
+DROP FUNCTION IF EXISTS GetCustomerEmail;
+
+
+
+
+--Cursors in SQL are used to retrieve and process rows one by one from the result set of a query.
+
+
+#Example
+-- Create Products Table
+CREATE TABLE products (
+    product_id INT NOT NULL AUTO_INCREMENT,
+    product_name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (product_id)
+);
+
+-- Create Orders Table
+CREATE TABLE orders (
+    order_id INT NOT NULL AUTO_INCREMENT,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2),
+    PRIMARY KEY (order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Insert Sample Data into Products Table
+INSERT INTO products (product_name, price) VALUES
+('Product A', 10.00),
+('Product B', 20.00),
+('Product C', 30.00);
+
+-- Insert Sample Data into Orders Table
+INSERT INTO orders (product_id, quantity) VALUES
+(1, 2),
+(2, 3),
+(3, 1);
+
+
+
+
+-- Change the delimiter to //
+DELIMITER //
+
+-- Create the stored procedure to calculate total price
+CREATE PROCEDURE CalculateTotalPrice()
+BEGIN
+    DECLARE done INT DEFAULT 0;
+    DECLARE orderId INT;
+    DECLARE prodId INT;
+    DECLARE qty INT;
+    DECLARE prodPrice DECIMAL(10, 2);
+
+    -- Declare a cursor for orders
+    DECLARE ordersCursor CURSOR FOR
+        SELECT order_id, product_id, quantity FROM orders;
+
+    -- Declare continue handler for NOT FOUND
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+    -- Open the cursor
+    OPEN ordersCursor;
+
+    -- Loop through all rows in the cursor
+    read_loop: LOOP
+        FETCH ordersCursor INTO orderId, prodId, qty;
+
+        -- Exit the loop if no more rows
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        -- Get the product price
+        SELECT price INTO prodPrice FROM products WHERE product_id = prodId;
+
+        -- Calculate the total price
+        UPDATE orders SET total_price = qty * prodPrice WHERE order_id = orderId;
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE ordersCursor;
+END //
+
+-- Change the delimiter back to ;
+DELIMITER ;
+
+
+
+CALL CalculateTotalPrice();
+
+
+--Predefined cursors are system-defined cursors provided by the DBMS.
+
