@@ -1,0 +1,97 @@
+#A view in SQL is a virtual table based on the result-set of an SQL query. Views can contain rows and columns, just like a real table. 
+#Example
+-- Create Products Table
+CREATE TABLE products (
+    product_id INT NOT NULL AUTO_INCREMENT,
+    product_name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    PRIMARY KEY (product_id)
+);
+
+-- Create Orders Table
+CREATE TABLE orders (
+    order_id INT NOT NULL AUTO_INCREMENT,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2),
+    PRIMARY KEY (order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+-- Insert Sample Data into Products Table
+INSERT INTO products (product_name, price) VALUES
+('Product A', 10.00),
+('Product B', 20.00),
+('Product C', 30.00);
+
+-- Insert Sample Data into Orders Table
+INSERT INTO orders (product_id, quantity) VALUES
+(1, 2),
+(2, 3),
+(3, 1);
+
+
+
+-- Create a view for order details
+CREATE VIEW order_details AS
+SELECT
+    o.order_id,
+    p.product_name,
+    o.quantity,
+    p.price AS unit_price,
+    o.quantity * p.price AS total_price
+FROM
+    orders o
+JOIN
+    products p ON o.product_id = p.product_id;
+
+
+-- Query the view
+SELECT * FROM order_details;
+
+
+-- Drop the view named order_details
+DROP VIEW IF EXISTS order_details;
+
+#Triggers in SQL are special types of stored procedures that are automatically executed or fired when certain events occur in the database.
+
+#Example
+DELIMITER //
+CREATE TRIGGER before_order_insert_update
+BEFORE INSERT ON orders
+FOR EACH ROW
+BEGIN
+    DECLARE productPrice DECIMAL(10, 2);
+
+    -- Get the price of the product
+    SELECT price INTO productPrice FROM products WHERE product_id = NEW.product_id;
+
+    -- Calculate the total price
+    SET NEW.total_price = NEW.quantity * productPrice;
+END//
+
+CREATE TRIGGER before_order_update
+BEFORE UPDATE ON orders
+FOR EACH ROW
+BEGIN
+    DECLARE productPrice DECIMAL(10, 2);
+
+    -- Get the price of the product
+    SELECT price INTO productPrice FROM products WHERE product_id = NEW.product_id;
+
+    -- Calculate the total price
+    SET NEW.total_price = NEW.quantity * productPrice;
+END//
+DELIMITER ;
+
+
+/*
+TCL commands are used to manage transactions, maintain ACID properties, and control the flow of data modifications.
+TCL commands ensure the consistency and durability of data in a database.
+*/
+#TCL Commands
+/*
+Commit: Saves a transaction to the database
+Rollback: Undoes a transaction or change that hasn't been saved to the database
+Savepoint: Temporarily saves a transaction for later rollback 
+*/
