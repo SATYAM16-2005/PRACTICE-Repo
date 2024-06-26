@@ -134,3 +134,67 @@ First and third column:
  [ 6  8]
  [11 13]
  [16 18]]
+
+
+
+#Numpy if left example
+import numpy as np
+
+# Create an example array
+arr = np.array([1, 2, 5, 6, 8, 3, 4, 7])
+
+# Use np.where() to apply the condition
+# If element < 5, set it to 0, otherwise set it to 1
+result = np.where(arr < 5, 0, 1)
+
+print("Original array:", arr)
+print("Resulting array:", result)
+
+#OUTPUT
+Original array: [1 2 5 6 8 3 4 7]
+Resulting array: [0 0 1 1 1 0 0 1]
+
+#Example of splitting arrays
+import numpy as np
+
+# Create a 2D array
+arr = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+
+# Split the array into 3 sub-arrays along rows (vsplit)
+v_split = np.vsplit(arr, 3)
+print("Vertical split:\n", v_split)
+
+# Split the array into 2 sub-arrays along columns (hsplit)
+h_split = np.hsplit(arr, 2)
+print("Horizontal split:\n", h_split)
+
+# Split the array into 3 sub-arrays along columns using split
+split_col = np.split(arr, 2, axis=1)
+print("Split along columns:\n", split_col)
+
+# Split the array into 2 sub-arrays along rows using array_split
+array_split = np.array_split(arr, 2, axis=0)
+print("Array split along rows:\n", array_split)
+
+
+#Output
+Vertical split:
+ [array([[1, 2, 3, 4]]), array([[5, 6, 7, 8]]), array([[ 9, 10, 11, 12]])]
+Horizontal split:
+ [array([[ 1,  2],
+       [ 5,  6],
+       [ 9, 10]]), array([[ 3,  4],
+       [ 7,  8],
+       [11, 12]])]
+Split along columns:
+ [array([[ 1,  2],
+       [ 5,  6],
+       [ 9, 10]]), array([[ 3,  4],
+       [ 7,  8],
+       [11, 12]])]
+Array split along rows:
+ [array([[1, 2, 3, 4],
+       [5, 6, 7, 8]]), array([[ 9, 10, 11, 12]])]
+
+
+
