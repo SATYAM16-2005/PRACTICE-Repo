@@ -1,0 +1,179 @@
+#Pandas DataFrame: A Pandas DataFrame is a two-dimensional data structure used in Python for data analysis. It is similar to a table or a spreadsheet, where data is organized in rows and columns.
+--Note:We can create it using DataFrame() function.
+
+#Creating a DataFrame
+import pandas as pd
+
+# Create a dictionary
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'Salary': [50000, 60000, 70000]
+}
+
+# Create a DataFrame
+df = pd.DataFrame(data)
+
+print("DataFrame from Dictionary:\n", df)
+
+#Output
+DataFrame from Dictionary:
+       Name  Age  Salary
+0    Alice   25   50000
+1      Bob   30   60000
+2  Charlie   35   70000
+
+
+# Create a list of lists
+data = [
+    ['Alice', 25, 50000],
+    ['Bob', 30, 60000],
+    ['Charlie', 35, 70000]
+]
+
+# Define column names
+columns = ['Name', 'Age', 'Salary']
+
+# Create a DataFrame
+df = pd.DataFrame(data, columns=columns)
+
+print("\nDataFrame from List of Lists:\n", df)
+
+#Output
+DataFrame from List of Lists:
+       Name  Age  Salary
+0    Alice   25   50000
+1      Bob   30   60000
+2  Charlie   35   70000
+
+
+
+# Create a CSV file content
+csv_data = """Name,Age,Salary
+Alice,25,50000
+Bob,30,60000
+Charlie,35,70000
+"""
+
+# Write the CSV data to a file
+with open("sample_data.csv", "w") as file:
+    file.write(csv_data)
+
+# Read the CSV file into a DataFrame
+df = pd.read_csv("sample_data.csv")
+
+print("\nDataFrame from CSV File:\n", df)
+
+
+#Output
+DataFrame from CSV File:
+       Name  Age  Salary
+0    Alice   25   50000
+1      Bob   30   60000
+2  Charlie   35   70000
+
+
+#Data Inspection:Data inspection is the process of examining a DataFrame to understand its structure, check for missing or inconsistent data, and learn about the data types of each column.
+
+#Data Inspection Functions 
+
+--head()
+import pandas as pd
+
+# Sample DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Edward'],
+    'Age': [25, 30, 35, 40, 45],
+    'Salary': [50000, 60000, 70000, 80000, 90000]
+}
+df = pd.DataFrame(data)
+
+# Inspect the first few rows
+print(df.head())
+
+#Output
+      Name  Age  Salary
+0    Alice   25   50000
+1      Bob   30   60000
+2  Charlie   35   70000
+3    David   40   80000
+4   Edward   45   90000
+
+--info()
+# Get a summary of the DataFrame
+print(df.info())
+
+#Output
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 5 entries, 0 to 4
+Data columns (total 3 columns):
+ #   Column  Non-Null Count  Dtype 
+---  ------  --------------  ----- 
+ 0   Name    5 non-null      object
+ 1   Age     5 non-null      int64 
+ 2   Salary  5 non-null      int64 
+dtypes: int64(2), object(1)
+memory usage: 248.0+ bytes
+
+
+--describe()
+# Generate descriptive statistics
+print(df.describe())
+
+#Output
+             Age   Salary
+count   5.000000      5.0
+mean   35.000000  70000.0
+std     7.905694  15811.4
+min    25.000000  50000.0
+25%    30.000000  60000.0
+50%    35.000000  70000.0
+75%    40.000000  80000.0
+max    45.000000  90000.0
+
+--columns
+ #Get the column labels
+print(df.columns)
+
+#Output
+Index(['Name', 'Age', 'Salary'], dtype='object')
+
+--dtypes
+# Get the data types of each column
+print(df.dtypes)
+
+#output
+Name      object
+Age        int64
+Salary     int64
+dtype: object
+
+--isnull()
+# Check for missing values
+print(df.isnull())
+
+#output
+    Name    Age  Salary
+0  False  False   False
+1  False  False   False
+2  False  False   False
+3  False  False   False
+4  False  False   False
+
+#Data Exploration: Data exploration is the process of analyzing the DataFrame to understand distributions, patterns, and relationships within the data. It helps to generate hypotheses and guide further analysis or data manipulation.
+--data exploration functions
+--unique()
+# Unique values in the 'Name' column
+print(df['Name'].unique())
+
+--value_counts()
+# Value counts of the 'Name' column
+print(df['Name'].value_counts())
+
+--corr()
+# Correlation matrix
+print(df.corr())
+
+
+
+
