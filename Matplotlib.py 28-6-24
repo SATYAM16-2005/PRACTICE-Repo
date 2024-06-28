@@ -1,0 +1,233 @@
+
+#Matplotlib: is a widely used Python library for creating static, interactive, and animated visualizations in Python.
+
+
+#Examples
+
+#Code fro making a piechart using matplotlib
+import matplotlib.pyplot as plt
+
+
+labels = ['Apple', 'Banana', 'Cherry', 'Date']
+sizes = [15, 30, 45, 10]
+colors = ['gold', 'yellowgreen', 'lightcoral', 'lightskyblue']
+explode = (0.1, 0, 0, 0)  
+
+
+plt.pie(sizes, explode=explode, labels=labels, colors=colors,
+        autopct='%1.1f%%', shadow=True, startangle=140)
+
+
+plt.axis('equal')
+
+
+plt.title('Fruit Distribution')
+plt.show()
+
+
+
+#With Styling
+import matplotlib.pyplot as plt
+
+
+labels = ['Apple', 'Banana', 'Cherry', 'Date']
+sizes = [15, 30, 45, 10]
+colors = ['gold', 'yellowgreen', 'lightcoral', 'lightskyblue']
+explode = (0.1, 0, 0, 0)  
+
+
+plt.style.use('ggplot')  
+
+fig, ax = plt.subplots()
+wedges, texts, autotexts = ax.pie(
+    sizes, explode=explode, labels=labels, colors=colors,
+    autopct='%1.1f%%', shadow=True, startangle=140,
+    wedgeprops={'edgecolor': 'black'}
+)
+
+
+for text in texts:
+    text.set_fontsize(12)
+    text.set_color('darkblue')
+    
+for autotext in autotexts:
+    autotext.set_fontsize(12)
+    autotext.set_color('white')
+    autotext.set_weight('bold')
+
+
+ax.axis('equal')
+
+
+plt.title('Fruit Distribution', fontsize=16, color='darkred')
+
+
+plt.show()
+
+
+#Line chart
+import matplotlib.pyplot as plt
+x = [1, 2, 3, 4, 5, 6]  # x-values
+y = [4, 5, 6, 3, 2, 3]  #y-values
+
+plt.plot(x, y, color="green")
+plt.title("x vs y")   #to show the title of the visual
+plt.xlabel("x axis")  #to set the label of a axix
+plt.ylabel("y axis")  #to set the label of y axis
+plt.show()
+
+
+# code for drawing multiple line in line chart
+import matplotlib.pyplot as plt
+x = [0, 1, 2, 3, 4, 5]
+y1 = [0, 1, 4, 9, 16, 25]
+y2 = [0, 1, 8, 27, 64, 125]
+y3 = [0, 1, 16, 81, 256, 625]
+
+
+plt.plot(x, y1, label='y = x^2', marker='o', linestyle='-', color='b')
+plt.plot(x, y2, label='y = x^3', marker='s', linestyle='--', color='g')
+plt.plot(x, y3, label='y = x^4', marker='^', linestyle='-.', color='r')
+
+
+plt.title('Multiple Lines in Line Chart')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+
+plt.legend()
+
+plt.grid(True)
+plt.show()
+
+
+#Code for making bar chart
+import matplotlib.pyplot as plt
+
+
+categories = ['A', 'B', 'C', 'D', 'E']
+values = [10, 24, 36, 40, 5]
+
+
+plt.bar(categories, values, color='blue', edgecolor='black')
+
+
+plt.title('Bar Chart Example', fontsize=16, color='darkblue')
+plt.xlabel('Categories', fontsize=14, color='darkgreen')
+plt.ylabel('Values', fontsize=14, color='darkgreen')
+
+
+plt.xticks(fontsize=12, color='purple')
+plt.yticks(fontsize=12, color='purple')
+
+
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+
+plt.show()
+
+
+
+#Combining Line and Bar chart togetgher
+import matplotlib.pyplot as plt
+
+
+categories = ['A', 'B', 'C', 'D', 'E']
+bar_values = [10, 24, 36, 40, 5]
+line_values = [5, 15, 25, 35, 45]
+
+
+fig, ax1 = plt.subplots()
+
+
+ax1.bar(categories, bar_values, color='blue', edgecolor='black', alpha=0.6, label='Bar Values')
+ax1.set_xlabel('Categories', fontsize=14, color='darkgreen')
+ax1.set_ylabel('Bar Values', fontsize=14, color='blue')
+ax1.tick_params(axis='y', labelcolor='blue')
+
+
+ax2 = ax1.twinx()  
+ax2.plot(categories, line_values, color='red', marker='o', linestyle='-', linewidth=2, label='Line Values')
+ax2.set_ylabel('Line Values', fontsize=14, color='red')
+ax2.tick_params(axis='y', labelcolor='red')
+
+
+plt.title('Combined Line and Bar Chart', fontsize=16, color='darkblue')
+fig.legend(loc='upper left', bbox_to_anchor=(0.1,0.9))
+
+
+ax1.grid(axis='y', linestyle='--', alpha=0.7)
+ax2.grid(axis='y', linestyle='--', alpha=0.7)
+
+plt.show()
+
+
+
+
+
+
+#scatterplot chart
+import matplotlib.pyplot as plt
+
+
+x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+y = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+sizes = [20, 50, 80, 200, 150, 180, 100, 250, 300, 400]
+colors = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+
+
+plt.scatter(x, y, s=sizes, c=colors, cmap='viridis', alpha=0.6, edgecolor='w', linewidth=0.5)
+
+
+plt.title('Scatter Plot Example', fontsize=16, color='darkblue')
+plt.xlabel('X-axis', fontsize=14, color='darkgreen')
+plt.ylabel('Y-axis', fontsize=14, color='darkgreen')
+
+
+cbar = plt.colorbar()
+cbar.set_label('Color Intensity')
+plt.show()
+
+
+
+
+#HISTOGRAM
+import matplotlib.pyplot as plt
+import numpy as np
+data = np.random.randn(1000)  
+
+
+plt.hist(data, bins=30, color='blue', edgecolor='black', alpha=0.7)
+
+plt.title('Histogram Example', fontsize=16, color='darkblue')
+plt.xlabel('Value', fontsize=14, color='darkgreen')
+plt.ylabel('Frequency', fontsize=14, color='darkgreen')
+
+
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
+
+
+#Area Plot
+import numpy as np
+import matplotlib.pyplot as plt
+
+x=range(1,6)
+y=[1,4,6,8,4]
+
+plt.fill_between(x, y)
+plt.show()
+
+
+
+
+#Box Plot
+import matplotlib.pyplot as plt
+import numpy as np
+data = np.random.normal(loc=0, scale=1, size=100)
+
+plt.boxplot(data)
+plt.title('Simple Box Plot')
+plt.xlabel('Data')
+plt.ylabel('Value')
+plt.show()
+
