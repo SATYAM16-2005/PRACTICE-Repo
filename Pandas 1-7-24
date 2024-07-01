@@ -1,1 +1,367 @@
+#INDEXING AND SLICING
+--Loc is used to filter rows and select columns by lable.
+
+#Example
+import pandas as pd
+import numpy as np
+
+data = {
+    'A': range(1, 6),
+    'B': list('abcde'),
+    'C': np.random.randn(5)
+}
+
+
+df = pd.DataFrame(data)
+print(df)
+
+--Output
+
+   A  B         C
+0  1  a  0.469112
+1  2  b -0.282863
+2  3  c -1.509059
+3  4  d -1.135632
+4  5  e  1.212112
+
+# Selecting a column
+print(df['A'])
+
+--output
+0    1
+1    2
+2    3
+3    4
+4    5
+Name: A, dtype: int64
+
+
+# Selecting multiple columns
+print(df[['A', 'C']])
+
+--output
+   A         C
+0  1  0.469112
+1  2 -0.282863
+2  3 -1.509059
+3  4 -1.135632
+4  5  1.212112
+
+
+# Selecting a single row by index
+print(df.iloc[2])
+
+--output
+A    3.000000
+B    c
+C   -1.509059
+Name: 2, dtype: object
+
+
+# Selecting multiple rows by index
+print(df.iloc[1:4])
+
+--output
+   A  B         C
+1  2  b -0.282863
+2  3  c -1.509059
+3  4  d -1.135632
+
+
+# Selecting specific rows and columns
+print(df.iloc[1:4, [0, 2]])
+
+--output
+   A         C
+1  2 -0.282863
+2  3 -1.509059
+3  4 -1.135632
+
+
+# Selecting a range of rows
+print(df[1:4])
+
+--output
+   A  B         C
+1  2  b -0.282863
+2  3  c -1.509059
+3  4  d -1.135632
+
+
+# Selecting a range of columns (using loc)
+print(df.loc[:, 'A':'C'])
+
+--output
+A  B         C
+0  1  a  0.469112
+1  2  b -0.282863
+2  3  c -1.509059
+3  4  d -1.135632
+4  5  e  1.212112
+
+
+--Note:"iloc is used to filter rows and columns based on integer position"
+--df.iloc[index_of_rows,index_of_column]
+
+
+#Boolean Indexing:is a powerful technique that allows you to select data from a DataFrame or Series based on conditions.
+
+#Example
+import pandas as pd
+import numpy as np
+
+# Sample DataFrame
+data = {
+    'A': range(1, 6),
+    'B': list('abcde'),
+    'C': np.random.randn(5)
+}
+df = pd.DataFrame(data)
+print(df)
+
+--output
+   A  B         C
+0  1  a  1.172008
+1  2  b -0.690079
+2  3  c  0.797611
+3  4  d  0.335916
+4  5  e -0.100527
+
+# Boolean Series
+condition = df['A'] > 2
+print(condition)
+
+--output
+0    False
+1    False
+2     True
+3     True
+4     True
+Name: A, dtype: bool
+
+# Applying boolean indexing
+filtered_df = df[condition]
+print(filtered_df)
+
+--output
+   A  B         C
+2  3  c  0.797611
+3  4  d  0.335916
+4  5  e -0.100527
+
+# Filter rows where 'A' > 2 and select columns 'A' and 'B'
+filtered_df = df.loc[df['A'] > 2, ['A', 'B']]
+print(filtered_df)
+
+--output
+   A  B
+2  3  c
+3  4  d
+4  5  e
+
+
+# Update values in 'C' where 'A' > 2
+df.loc[df['A'] > 2, 'C'] = 0
+print(df)
+
+--output
+   A  B         C
+0  1  a  1.172008
+1  2  b -0.690079
+2  3  c  0.000000
+3  4  d  0.000000
+4  5  e  0.000000
+
+
+
+
+
+#Data Manipulation and Transformation
+/*
+Reshaping:
+1.Pivoting:
+
+pivot(): Rotates data from rows into columns based on a key column.
+2.Melting:
+
+melt(): Converts data from wide format to long format.
+3.Stacking/Unstacking:
+
+stack(): Collapses DataFrame columns into a single column.
+unstack(): Reverse operation of stacking.
+4.Reshaping with pivot_table:
+
+pivot_table(): Similar to pivot, but can handle duplicate entries by applying an aggregation function.
+Transforming:
+1.Grouping and Aggregation:
+
+groupby(): Groups data based on one or more keys.
+agg(): Applies aggregate functions like sum, mean, etc.
+2.Resampling and Time-series Transformation:
+
+resample(): Resamples data over different time frequencies.
+3.Applying Functions:
+
+apply(): Applies custom functions to rows, columns, or entire DataFrame.
+4.Dropping Duplicates:
+
+drop_duplicates(): Removes duplicate rows based on a subset of columns or all columns.
+5.Renaming Columns:
+
+rename(): Renames columns to make them more readable or consistent.
+*/
+
+
+
+#Example
+import pandas as pd
+import numpy as np
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David', 'Eve'],
+    'Age': [24, 27, 22, 32, 29],
+    'City': ['New York', 'Los Angeles', 'New York', 'Chicago', 'Los Angeles'],
+    'Salary': [70000, 80000, 75000, 65000, 90000]
+}
+df = pd.DataFrame(data)
+print(df)
+
+--output
+      Name         Age         City  Salary
+0    Alice         24     New York   70000
+1      Bob         27  Los Angeles   80000
+2  Charlie         22     New York   75000
+3    David         32      Chicago   65000
+4      Eve         29  Los Angeles   90000
+
+# Filter rows where Age > 25
+filtered_df = df[df['Age'] > 25]
+print(filtered_df)
+
+--output
+    Name   Age         City  Salary
+1    Bob    27  Los Angeles   80000
+3  David    32      Chicago   65000
+4    Eve    29  Los Angeles   90000
+
+
+# Filter rows where Age > 25 and City is 'Los Angeles'
+filtered_df = df[(df['Age'] > 25) & (df['City'] == 'Los Angeles')]
+print(filtered_df)
+
+--output
+  Name   Age         City  Salary
+1  Bob    27  Los Angeles   80000
+4  Eve    29  Los Angeles   90000
+
+# Add a new column 'Experience' with fixed values
+df['Experience'] = [2, 3, 1, 4, 5]
+print(df)
+
+--output
+      Name   Age         City  Salary  Experience
+0    Alice    24     New York   70000           2
+1      Bob    27  Los Angeles   80000           3
+2  Charlie    22     New York   75000           1
+3    David    32      Chicago   65000           4
+4      Eve    29  Los Angeles   90000           5
+
+# Increase all salaries by 10%
+df['Salary'] = df['Salary'] * 1.10
+print(df)
+
+--output
+      Name   Age         City  Salary  Experience
+0    Alice    24     New York   77000         2
+1      Bob    27  Los Angeles   88000         3
+2  Charlie    22     New York   82500         1
+3    David    32      Chicago   71500         4
+4      Eve    29  Los Angeles   99000         5
+
+
+# Group by 'City' and calculate mean salary and age
+grouped_df = df.groupby('City').mean()
+print(grouped_df)
+
+
+--output
+               Age   Salary  Experience
+City                                     
+Chicago       32.0  71500.0         4.0
+Los Angeles   28.0  93500.0         4.0
+New York      23.0  79750.0         1.5
+
+# Group by 'City' and calculate various statistics
+agg_df = df.groupby('City').agg({'Salary': ['mean', 'sum'], 'Age': 'max'})
+print(agg_df)
+
+--output
+              Salary          Age
+                mean     sum  max
+City                                
+Chicago      71500.0   71500   32
+Los Angeles  93500.0  187000   29
+New York     79750.0  159500   24
+
+
+#Example
+# Sample DataFrames
+df1 = pd.DataFrame({'ID': [1, 2, 3], 'Name': ['Alice', 'Bob', 'Charlie']})
+df2 = pd.DataFrame({'ID': [1, 2, 4], 'Age': [24, 27, 22]})
+
+# Merge DataFrames on 'ID'
+merged_df = pd.merge(df1, df2, on='ID')
+print(merged_df)
+
+--output
+   ID     Name   Age
+0   1    Alice    24
+1   2      Bob    27
+
+
+#Example
+# Sample DataFrames
+df3 = pd.DataFrame({'ID': [1, 2, 3], 'Name': ['Alice', 'Bob', 'Charlie']})
+df4 = pd.DataFrame({'ID': [1, 2, 4], 'Age': [24, 27, 22]})
+
+# Join DataFrames
+joined_df = df3.set_index('ID').join(df4.set_index('ID'))
+print(joined_df)
+
+--output
+       Name   Age
+ID                  
+1     Alice  24.0
+2       Bob  27.0
+3   Charlie   NaN
+4       NaN  22.0
+
+# Pivot table example
+pivot_df = df.pivot_table(values='Salary', index='City', columns='Experience', aggfunc='mean')
+print(pivot_df)
+
+--output
+Experience       1         2         3         4         5
+City                                                       
+Chicago         NaN       NaN       NaN   71500.0       NaN
+Los Angeles     NaN       NaN   88000.0       NaN   99000.0
+New York     82500.0   77000.0       NaN       NaN       NaN
+
+# Melt example
+melted_df = pd.melt(df, id_vars=['Name'], value_vars=['Age', 'Salary'])
+print(melted_df)
+--output
+      Name   variable   value
+0    Alice        Age      24
+1      Bob        Age      27
+2  Charlie        Age      22
+3    David        Age      32
+4      Eve        Age      29
+5    Alice     Salary   77000
+6      Bob     Salary   88000
+7  Charlie     Salary   82500
+8    David     Salary   71500
+9      Eve     Salary   99000
+
+
+
 
